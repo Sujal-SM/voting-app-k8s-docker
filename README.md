@@ -46,6 +46,7 @@ Led the deployment of scalable applications on AWS EC2 using Kubernetes and Argo
 * AWS EC2: Infrastructure hosting for Kubernetes clusters.
 * Kubernetes Dashboard: User-friendly interface for managing containerized applications.
 * Argo CD: Continuous Delivery tool for automated application deployments.
+* AWS ECR: A secure, fully managed container registry used to store, manage, and deploy Docker images for Kubernetes applications.
 
 ### Achievements:
 
@@ -56,3 +57,17 @@ This project description emphasizes your role in leveraging AWS EC2, Kubernetes,
 
 
 
+## AWS CLI & ECR Setup
+
+1. **Configure AWS CLI**
+   ```bash
+   aws configure
+
+   aws ecr get-login-password --region <your-region> \
+| docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.<your-region>.amazonaws.com
+
+
+docker build -t voting-app .
+docker tag voting-app:latest <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
+
+docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
