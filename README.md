@@ -71,3 +71,10 @@ docker build -t voting-app .
 docker tag voting-app:latest <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
 
 docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
+
+
+
+Clone the repository
+```
+git clone https://github.com/Sujal-SM/k8s-kind-voting-app.git
+```
