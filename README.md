@@ -63,11 +63,10 @@ This project description emphasizes your role in leveraging AWS EC2, Kubernetes,
    ```bash
    aws configure
 
-   aws ecr get-login-password --region <your-region> \
-| docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.<your-region>.amazonaws.com
+   aws ecr get-login-password --region <your-region> 
+docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.<your-region>.amazonaws.com
 docker build -t voting-app .
 docker tag voting-app:latest <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
-
 docker push <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/voting-app:latest
 
 
