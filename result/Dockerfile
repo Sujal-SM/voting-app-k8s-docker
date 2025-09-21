@@ -1,16 +1,25 @@
-FROM python:3.9-slim
+FROM node:18-slim
 
-# add apache bench (ab) tool
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    apache2-utils \
-    && rm -rf /var/lib/apt/lists/*
+# add curl for healthcheck
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl tini && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /seed
+WORKDIR /usr/local/app
+
+# have nodemon available for local dev use (file watching)
+RUN npm install -g nodemon
+
+COPY package*.json ./
+
+RUN npm ci && \
+ npm cache clean --force && \
+ mv /usr/local/app/node_modules /node_modules
 
 COPY . .
 
-# create POST data files with ab friendly formats
-RUN python make-data.py
+ENV PORT 80
+EXPOSE 80
 
-CMD /seed/generate-votes.sh
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["node", "server.js"]
